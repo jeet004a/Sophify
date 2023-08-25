@@ -47,4 +47,4 @@ def user(request):
     # user=User.objects.get(id=pk)
     context={"user":user}
 
-    return render(request,'user.html',context)
+    return render(request,'user.html',context) 
