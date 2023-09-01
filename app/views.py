@@ -66,7 +66,7 @@ def logout_page(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
 def profile(request,id):
-    user=User.objects.all()
+    user=request.user.profile
     print(user)
     context={"user":user}
     return render(request,'user/profile.html',context)
@@ -75,6 +75,21 @@ def profile(request,id):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
 def userform(request,id):
-    user=User.objects.all()
+    user=request.user.profile
+    if request.method=="POST":
+        user1=request.user.profile
+        # profile=Profile.objects.all()
+        username=request.POST.get("username")
+        fullname=request.POST.get("fullname")
+        address=request.POST.get("address")
+        cityname=request.POST.get("cityname")
+        state=request.POST.get("state")
+        # user.fullname=fullname
+        user1.fullname=fullname
+        user1.address=address
+        user1.cityname=cityname
+        user1.state=state
+        user1.save()
+        return redirect(index)
     context={'user':user}
     return render(request,'user/userform1.html',context)
