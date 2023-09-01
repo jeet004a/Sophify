@@ -1,0 +1,48 @@
+{% comment %} {% include 'navbar.html' %} {% endcomment %}
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Website</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  </head>
+  <body>
+    
+
+{% block content %}
+<div class="container">
+    <table class="table table-bordered">
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">City</th>
+            <th scope="col">State</th>
+          </tr>
+          <tr>
+            <th scope="row">{{user.id}}</th>
+            <td>{{user.fullname}}</td>
+            <td>{{user.cityname}}</td>
+            <td>{{user.state}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <img src="{{request.user.profile.profile_pic.url}}" class="rounded-circle">
+    
+</div>
+{% endblock content %}
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+

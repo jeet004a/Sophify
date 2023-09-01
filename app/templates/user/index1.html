@@ -8,6 +8,16 @@
     <link rel="icon" type="image/x-icon" href="/static/images/jack.jpg">
     <title>shopify</title>
     <link rel="stylesheet" href="/static/images/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+      {% comment %} css for user image {% endcomment %}
+      .rounded-circle{
+        height: 50px;
+        width: 50px;
+       
+      }
+      
+    </style>
 </head>
 <body>
         
@@ -27,17 +37,23 @@
                 <a class="md:mr-5 hidden md:flex hover:text-gray-900">Manage</a>
             
             <nav class="md:ml-auto hidden md:flex flex flex-wrap items-center text-base justify-center">
-                <a class="md:mr-5 hover:text-gray-900">Pricing</a>
+              
+                <a href="" class="md:mr-5 hover:text-gray-900">Details</a>
                 <a class="md:mr-5 hover:text-gray-900">Learn</a>
-                
-                <a href="{% url 'login' %}" class="md:mr-8 hover:text-gray-900">Log in</a>
+                <a href="{% url 'logout' %}" class="md:mr-8 hover:text-gray-900">Logout</a>
+                {% comment %} {% for i in user %}
+                <p>{{i.fullname}}</p>
+                {% endfor %} {% endcomment %}
+                <!--<h1>{{request.user}}</h1>-->
+                {% comment %} <a href="{% url 'profile' user.id%}">Press</a> {% endcomment %}
+                <span class="avatar avatar-sm rounded-circle">
+                 
+                  <a href="{% url 'profile' user.id %}"><img class="rounded-circle" alt="Image placeholder" src="{{request.user.profile.profile_pic.url}}"></a>
+                  
+                </span>
                 
             </nav>
-            <a href="{% url 'register' %}" class="inline-flex  items-center  border-0 py-3 px-5 focus:outline-none bg-emerald-800 text-white hover:bg-green-900 font-bold rounded text-base mt-4 md:mt-0">Try for free
-                <!-- <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-                </svg> -->
-            </a>
+            
             </div>
         </header>
 
@@ -49,11 +65,10 @@
                 <div class="flex w-full md:justify-start justify-center items-end">
                   <div class=" mr-4 md:w-full lg:w-full xl:w-1/2 w-2/4">
                     <!-- <label for="hero-field" class="leading-7 text-sm text-gray-600">Placeholder</label> -->
-                    <input type="text" id="hero-field" placeholder="Enter Your Email Address" name="hero-field" class="w-full bg-white-100 rounded border-2     focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-2.5 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                    
                   </div>
-                  <button class="inline-flex text-white bg-emerald-800 border-0 py-3 px-9 focus:outline-none hover:bg-green-900 rounded text-lg">Try for free</button>
+                  
                 </div>
-                <p class="text-sm mt-2 text-gray-500 mb-8 w-full">Try Shopify free for 14 days, no credit card required. By entering your email, you agree to receive marketing. <br>emails from Shopify.</p>
                 
               </div>
               <div class=" pr-10 lg:max-w-lg lg:w-full md:w-1/2 w-5/6">

@@ -1,29 +1,36 @@
 from django.shortcuts import render,redirect
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import logout,login
+from django.contrib.auth.models import Group
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-# Create your views here.
+from .models import Profile
+from .decorators import unauthenticated_user, allowed_users,admin_only
 
-@login_required(login_url="login")
+
+
+
 def home(request):
     return render(request,'index.html')
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def index(request):
+    return render(request,'user/index1.html')
 
-
-def login_page(requset):
-    if requset.method=="POST":
-        username=requset.POST.get("username")
-        password=requset.POST.get("password")
-        user=authenticate(username=username,password=password)
+@unauthenticated_user
+def login_page(request):
+    if request.method=="POST":
+        username=request.POST.get("username")
+        password=request.POST.get("password")
+        user=authenticate(username=username, password=password)
         if user is not None:
-            login(requset,user)
-            return redirect(home)
+            login(request,user)
+            return redirect(index)
         else:
-            messages.info(requset,"Nikal Eha seh")
             return redirect(login_page)
-    return render(requset,'login.html')
-
+    return render(request,'login1.html')
 
 def register(request):
     if request.method=="POST":
@@ -34,17 +41,31 @@ def register(request):
         user=User.objects.create_user(
             first_name=first_name,
             last_name=last_name,
-            username=username
+            username=username,
+            password=password
         )
-        user.set_password(password)
+        group=Group.objects.get(name='customer')
+        user.groups.add(group)
+        # Profile.objects.create(
+        #     fullname=username
+        # )
         user.save()
+        
+        # user.set_password(password)
         return redirect(login_page)
-
     return render(request,'register.html')
 
-@login_required(login_url="login")
-def user(request):
-    # user=User.objects.get(id=pk)
-    context={"user":user}
 
-    return render(request,'user.html',context) 
+def logout_page(request):
+    logout(request)
+    return redirect(login_page)
+
+
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def profile(request,id):
+    user=User.objects.all()
+    print(user)
+    return render(request,'user/index1.html')
