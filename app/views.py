@@ -68,4 +68,13 @@ def logout_page(request):
 def profile(request,id):
     user=User.objects.all()
     print(user)
-    return render(request,'user/index1.html')
+    context={"user":user}
+    return render(request,'user/profile.html',context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def userform(request,id):
+    user=User.objects.all()
+    context={'user':user}
+    return render(request,'user/userform1.html',context)
