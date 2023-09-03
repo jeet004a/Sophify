@@ -2203,7 +2203,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                   <h6 class="heading-small text-muted mb-4">Enter your information</h6>
                   <div class="pl-lg-4">
@@ -2268,7 +2268,12 @@
                           <input type="number" id="input-postal-code" class="form-control form-control-alternative" name="postal_code" placeholder="Postal code" value="{{request.user.profile.postal_code}}" >
                         </div>
                       </div>
-                      
+                      <div class="col-lg-4">
+                        <div class="form-group focused">
+                          <label class="form-control-label" for="input-country">Image</label>
+                          <input type="file" name="profile_pic" value="{{request.user.profile.profile_pic}}">
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <hr class="my-4">

@@ -14,7 +14,7 @@ class Profile(models.Model):
     address=models.CharField(max_length=200,blank=True)
     postal_code=models.IntegerField(default=0)
     age=models.IntegerField(default=18)
-    profile_pic=models.ImageField(default="Profile.jpg",null=True,blank=True)
+    profile_pic=models.ImageField(default="profile_images/Profile.jpg",null=True,blank=True,upload_to='profile_images/')
 
     def __str__(self):
         return str(self.user)

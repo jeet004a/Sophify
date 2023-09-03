@@ -84,11 +84,16 @@ def userform(request,id):
         address=request.POST.get("address")
         cityname=request.POST.get("cityname")
         state=request.POST.get("state")
+        profile_pic=request.FILES.get("profile_pic")
+        if profile_pic is None:
+            profile_pic='profile_images/Profile.jpg'
+        print(profile_pic)
         # user.fullname=fullname
         user1.fullname=fullname
         user1.address=address
         user1.cityname=cityname
         user1.state=state
+        user1.profile_pic=profile_pic
         user1.save()
         return redirect(index)
     context={'user':user}
