@@ -298,6 +298,15 @@
         <div class="formbg-outer">
           <div class="formbg">
             <div class="formbg-inner padding-horizontal--48">
+              {% if messages %}
+              <ul class="messages">
+                  {% for message in messages %}
+                  <div class="alert alert-info" role="alert" role="alert">
+                      {{ message }}
+                  </div>
+                  {% endfor %}
+              </ul>
+              {% endif %}
               <span class="padding-bottom--15">Sign in to your account</span>
               <form method="POST" id="stripe-login">
                 {% csrf_token %}

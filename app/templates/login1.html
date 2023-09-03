@@ -257,6 +257,7 @@
 </head>
 
 <body>
+  
   <div class="login-root">
     <div class="box-root flex-flex flex-direction--column" style="min-height: 100vh;flex-grow: 1;">
       <div class="loginbackground box-background--white padding-top--64">
@@ -298,6 +299,15 @@
         <div class="formbg-outer">
           <div class="formbg">
             <div class="formbg-inner padding-horizontal--48">
+              {% if messages %}
+              <ul class="messages">
+                  {% for message in messages %}
+                  <div class="alert alert-danger" role="alert">
+                      {{ message }}
+                  </div>
+                  {% endfor %}
+              </ul>
+              {% endif %}
               <span class="padding-bottom--15">Sign in to your account</span>
               <form method="POST" >
                 {% csrf_token %}

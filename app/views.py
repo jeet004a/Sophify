@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .models import Profile
 from .decorators import unauthenticated_user, allowed_users,admin_only
-
+from django.contrib import messages
 
 
 
@@ -29,7 +29,8 @@ def login_page(request):
             login(request,user)
             return redirect(index)
         else:
-            return redirect(login_page)
+            messages.error(request, "Username or Password was wrong")
+            # return redirect(login_page)
     return render(request,'login1.html')
 
 def register(request):
@@ -38,12 +39,16 @@ def register(request):
         last_name=request.POST.get("last_name")
         username=request.POST.get("username")
         password=request.POST.get("password")
-        user=User.objects.create_user(
+        try:
+            user=User.objects.create_user(
             first_name=first_name,
             last_name=last_name,
             username=username,
             password=password
         )
+        except:
+            messages.error(request, "Username is already taken")
+            return redirect(register)
         group=Group.objects.get(name='customer')
         user.groups.add(group)
         # Profile.objects.create(
